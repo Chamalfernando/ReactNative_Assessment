@@ -8,10 +8,13 @@ import {
 } from "react-native";
 import React from "react";
 import { intro } from "../assets";
+import { useNavigation } from "expo-router";
 
 const { height } = Dimensions.get("window");
 
 const Intro = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       {/* Top */}
@@ -23,7 +26,10 @@ const Intro = () => {
       <View style={styles.bottom}>
         <Text style={styles.title}>Great place to buy Products online</Text>
         <Text style={styles.subtitle}>Complete your order in 3 easy steps</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
       </View>

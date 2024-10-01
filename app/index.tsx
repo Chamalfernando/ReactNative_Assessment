@@ -1,23 +1,20 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Intro from "../src/screens/Intro";
+import DrawerNavigation from "../src/navigation/DrawerNavigation";
+
+const RootContent = () => {
+  return (
+    <NavigationContainer independent={true}>
+      <DrawerNavigation />
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
-  return (
-    // <Provider store={store}>
-    //   <NavigationContainer independent={true}>
-    //     <AppNavigator />
-    //   </NavigationContainer>
-    // </Provider>
-    <SafeAreaView>
-      <View>
-        <Intro />
-      </View>
-    </SafeAreaView>
-  );
+  return <RootContent />;
 }
 
 // export default function Index() {
