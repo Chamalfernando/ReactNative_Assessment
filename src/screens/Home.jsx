@@ -17,6 +17,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "expo-router";
 import { ShoppingCartIcon } from "react-native-heroicons/outline";
 // import IsNewBadge from "../components/IsNewBadge";
+import Loader from "../components/Loader";
 
 const { width } = Dimensions.get("window").width;
 const { height } = Dimensions.get("window").height;
@@ -117,7 +118,7 @@ const Home = () => {
       <Header />
       <SafeAreaView style={{ flex: 1 }}>
         {isLoading ? (
-          <Text>Loading</Text>
+          <Loader title="Product List is Loading..." />
         ) : (
           <FlatList
             data={productsArray}
