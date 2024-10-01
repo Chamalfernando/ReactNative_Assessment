@@ -13,6 +13,9 @@ import DetailsView from "../components/DetailsView";
 import Loader from "../components/Loader";
 import PriceFormat from "../components/PriceFormat";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
+import { addToCart } from "../redux/storeSlices";
+import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
 
 const { width, height } = Dimensions.get("window");
 
@@ -20,6 +23,8 @@ const ProductDetails = () => {
   const route = useRoute(); // Access the passed product data
   const { product } = route.params; // Destructure the product object
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const id = product.id;
   const productData = product;
@@ -44,12 +49,21 @@ const ProductDetails = () => {
             <View>
               <Text style={{ color: "white", fontWeight: 600, fontSize: 16 }}>
                 <PriceFormat
-                  amount={productData?.price}
+                  amount={productData?.price.amount}
                   style={{ color: "white", fontWeight: "600" }}
                 />
               </Text>
             </View>
             <Pressable
+              onPress={() => {
+                dispatch(
+                  addToCart(productData),
+                  Toast.show({
+                    type: "success",
+                    text1: `${productData?.name} added successfully`,
+                  })
+                );
+              }}
               style={{
                 backgroundColor: "yellow",
                 paddingHorizontal: 10,

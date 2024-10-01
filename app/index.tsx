@@ -1,9 +1,9 @@
 import React from "react";
-import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Intro from "../src/screens/Intro";
 import DrawerNavigation from "../src/navigation/DrawerNavigation";
+import { Provider } from "react-redux";
+import { store } from "../src/redux/store";
+import Toast, { BaseToast } from "react-native-toast-message";
 
 const RootContent = () => {
   return (
@@ -13,30 +13,28 @@ const RootContent = () => {
   );
 };
 
+const toastConfig = {
+  success: (props: any) => (
+    <BaseToast
+      {...props}
+      style={{ borderLeftColor: "lightmaroon" }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 15,
+        fontWeight: "500",
+      }}
+    />
+  ),
+};
+
 export default function App() {
-  return <RootContent />;
+  return (
+    <Provider store={store}>
+      <RootContent />
+      <Toast config={toastConfig} position={"bottom"} visibilityTime={2000} />
+    </Provider>
+  );
 }
-
-// export default function Index() {
-//   return (
-//     <View
-//       style={{
-//         flex: 1,
-//         justifyContent: "center",
-//         alignItems: "center",
-//       }}
-//     >
-//       <Text>Edit app/index.tsx to edit this screen.</Text>
-//     </View>
-//   );
+// export default function App() {
+//   return <RootContent />;
 // }
-
-// const App = () => {
-//   return (
-//     <Provider store={store}>
-//       <AppNavigator />
-//     </Provider>
-//   );
-// };
-
-// export default App;

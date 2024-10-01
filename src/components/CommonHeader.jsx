@@ -13,11 +13,13 @@ import {
 } from "react-native-heroicons/outline";
 import { useNavigation } from "expo-router";
 import { couch } from "../assets";
+import { useSelector } from "react-redux";
 
 // import { SafeAreaView } from "react-native-safe-area-context";
 
 const CommonHeader = ({ title }) => {
   const navigation = useNavigation();
+  const { productData } = useSelector((state) => state?.store);
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -33,6 +35,7 @@ const CommonHeader = ({ title }) => {
 
         <Pressable onPress={() => navigation.navigate("Home")}>
           <Image source={couch} alt="logo-icon" style={styles.couch} />
+          {/* <Text>ECOMMERCE APP</Text> */}
         </Pressable>
 
         <Pressable
@@ -41,7 +44,9 @@ const CommonHeader = ({ title }) => {
         >
           <ShoppingCartIcon color={"#000"} size={22} />
           <View style={styles.cartCount}>
-            <Text style={styles.cartText}>0</Text>
+            <Text style={styles.cartText}>
+              {productData?.length > 0 ? productData.length : 0}
+            </Text>
           </View>
         </Pressable>
       </View>

@@ -18,6 +18,9 @@ import { useNavigation } from "expo-router";
 import { ShoppingCartIcon } from "react-native-heroicons/outline";
 // import IsNewBadge from "../components/IsNewBadge";
 import Loader from "../components/Loader";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/storeSlices";
+import Toast from "react-native-toast-message";
 
 const { width } = Dimensions.get("window").width;
 const { height } = Dimensions.get("window").height;
@@ -30,6 +33,7 @@ const Home = () => {
   const [productsArray, setProductsArray] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const getData = async () => {
     try {
@@ -73,6 +77,7 @@ const Home = () => {
           style={styles.img}
           resizeMode="cover"
         />
+        {/* <Text>ECOMMERCE APP</Text> */}
         <View style={styles.textView}>
           <Text style={styles.productName}>{item.name}</Text>
           <View
@@ -97,6 +102,15 @@ const Home = () => {
               <Text>Available Color : {item?.colour}</Text>
             </View>
             <TouchableOpacity
+              onPress={() => {
+                dispatch(
+                  addToCart(item),
+                  Toast.show({
+                    type: "success",
+                    text1: `${item?.name} added successfully`,
+                  })
+                );
+              }}
               style={{
                 backgroundColor: "#f3f3f3",
                 paddingHorizontal: 10,

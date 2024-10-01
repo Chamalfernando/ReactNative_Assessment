@@ -10,9 +10,11 @@ import React from "react";
 import { Bars4Icon, ShoppingCartIcon } from "react-native-heroicons/outline";
 import { couch } from "../assets";
 import { useNavigation } from "expo-router";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const navigation = useNavigation();
+  const { productData } = useSelector((state) => state?.store);
 
   return (
     <SafeAreaView>
@@ -29,7 +31,9 @@ const Header = () => {
         >
           <ShoppingCartIcon color={"#000"} size={22} />
           <View style={styles.cartCount}>
-            <Text style={styles.cartText}>0</Text>
+            <Text style={styles.cartText}>
+              {productData?.length > 0 ? productData.length : 0}
+            </Text>
           </View>
         </Pressable>
       </View>
